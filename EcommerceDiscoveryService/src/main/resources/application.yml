@@ -1,0 +1,12 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: discoveryservice
+
+eureka:
+  client:
+    # 자기 자신은 client 로 등록하지 않아야 하기 때문에 false 로 구성
+    registerWithEureka: false
+    fetchRegistry: false
