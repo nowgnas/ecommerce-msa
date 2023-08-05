@@ -6,6 +6,8 @@ spring:
     name: user-service
 
 eureka:
+  instance:
+    instanceId: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
   client:
     registerWithEureka: true
     fetchRegistry: true
