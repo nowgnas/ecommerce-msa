@@ -1,9 +1,18 @@
 server:
-  port: 0
+  port: 9001
 
 spring:
   application:
     name: user-service
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
 
 eureka:
   instance:
@@ -14,3 +23,6 @@ eureka:
     serviceUrl:
       # 서버의 위치를 정의
       defaultZone: http://127.0.0.1:8761/eureka
+
+greeting:
+  message: Welcome to the ecommerce
