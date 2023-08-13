@@ -1,8 +1,9 @@
 package com.example.userservice.dto;
 
-import lombok.Data;
-
+import com.example.userservice.vo.ResponseOrder;
 import java.util.Date;
+import java.util.List;
+import lombok.Data;
 
 @Data
 public class UserDto {
@@ -12,5 +13,7 @@ public class UserDto {
     private String userId;
     private Date createdAt;
     private String encrypt;
+
+    private List<ResponseOrder> orders;
 
 }
