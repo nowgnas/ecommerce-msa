@@ -10,6 +10,8 @@ import java.util.UUID;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,23 @@ public class UserServiceImpl implements UserService {
     this.userRepository = userRepository;
     // UserServiceApplication 에 빈으로 등록해서 동작하도록 한다
     this.passwordEncoder = passwordEncoder; // 어디에서도 생성한 적이 없기 때문에 가장 먼저 호출 되는 클래스에서 넣어줘야 한다
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    UserEntity userEntity = userRepository.findByEmail(username);
+    if (userEntity == null){
+      throw new UsernameNotFoundException(username);
+    }
+    // credential 의 기본 클래스
+    return new User(
+        userEntity.getEmail(),
+        userEntity.getEncryptedPwd(),
+        true,
+        true,
+        true,
+        true,
+        new ArrayList<>());
   }
 
   @Override
@@ -54,4 +73,6 @@ public class UserServiceImpl implements UserService {
   public Iterable<UserEntity> getUserByAll() {
     return userRepository.findAll();
   }
+
+
 }

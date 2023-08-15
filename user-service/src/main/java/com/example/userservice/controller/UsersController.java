@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user-service")
 @Slf4j
 public class UsersController {
-    private UserService userService;
-  private Environment env;
+  private final UserService userService;
+  private final Environment env;
   @Autowired private Greeting greeting;
 
   @Autowired
