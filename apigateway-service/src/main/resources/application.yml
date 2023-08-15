@@ -20,24 +20,15 @@ spring:
             preLogger: true
             postLogger: true
       routes:
-        - id: first-service
-          uri: lb://FIRST-SERVICE # 이동될 주소
+        - id: user-service
+          uri: lb://USER-SERVICE
           predicates:
-            - Path=/first-service/** # 사용자 uri 입력 조건
-          filters:
-            - CustomFilter
-        #            - AddRequestHeader=first-request, first-request-header2
-        #            - AddResponseHeader=first-response, first-response-header2
-        - id: second-service
-          uri: lb://SECOND-SERVICE
+            - Path=/user-service/**
+        - id: catalog-service
+          uri: lb://CATALOG-SERVICE
           predicates:
-            - Path=/second-service/**
-          filters:
-            - CustomFilter
-            - name: LoggingFilter
-              args:
-                baseMessage: Hi Logger
-                preLogger: true
-                postLogger: true
-#            - AddRequestHeader=second-request, second-request-header2
-#            - AddResponseHeader=second-response, second-response-header2
+            - Path=/catalog-service/**
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
