@@ -31,11 +31,6 @@ public class UsersController {
     this.env = env;
   }
 
-  @GetMapping("/health_check")
-  public String status() {
-    return String.format("it's working on PORT %s", env.getProperty("local.server.port"));
-  }
-
   @GetMapping("welcome")
   public String welcome() {
     //        return env.getProperty("greeting.message");
@@ -73,5 +68,19 @@ public class UsersController {
     UserDto userDto = userService.getUserByUserId(userId);
     ResponseUser map = new ModelMapper().map(userDto, ResponseUser.class);
     return ResponseEntity.status(HttpStatus.OK).body(map);
+  }
+
+  @GetMapping("actuator/health_check")
+  public String status() {
+    return String.format(
+        "user service is running"
+            + "port (local.server.port) : "
+            + env.getProperty("local.server.port")
+            + "port (server.port) : "
+            + env.getProperty("server.port")
+            + "token secret: "
+            + env.getProperty("token.secret")
+            + "token expiration time : "
+            + env.getProperty("token.expiration_time"));
   }
 }
